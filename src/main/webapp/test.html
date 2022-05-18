@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .el-table .warning-row {
+            background: oldlace;
+        }
+
+        .el-table .success-row {
+            background: #f0f9eb;
+        }
+    </style>
+
+</head>
+<body>
+<div id="app">
+    <!--表格-->
+    <template>
+        <el-table
+                :data="tableData"
+                style="width: 100%"
+                :row-class-name="tableRowClassName">
+            <el-table-column
+                    prop=""
+                    label="id"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="time"
+                    label="内容"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="content"
+                    label="时间"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="type"
+                    label="类型">
+            </el-table-column>
+        </el-table>
+    </template>
+
+
+</div>
+
+
+<script src="js/vue.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+<script src="element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+
+<script>
+    new Vue({
+        el: "#app",
+        mounted(){
+            var _this=this;
+          axios({
+              methods: "get",
+              url:"http://localhost:8080/zhdj/ser/selectAll"
+          }).then(function (resp){
+              _this.tableData=resp.data;
+          })
+        },
+        methods: {
+
+            tableRowClassName({row, rowIndex}) {
+                if (rowIndex === 1) {
+                    return 'warning-row';
+                } else if (rowIndex === 3) {
+                    return 'success-row';
+                }
+                return '';
+            },
+        },
+        data() {
+            return {
+
+                // 品牌模型数据
+                dynamic:{
+                    dynamic_id:'',
+                    time:'',
+                    content:'',
+                    type:''
+                },
+
+                tableData: [{
+
+                    time:'2022.1',
+
+                    content:'动态页',
+
+                    type:'动态'
+                },{
+
+                    time:'2022.2',
+
+                    content:'道具页',
+
+                    type:'道具'
+                }]
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>

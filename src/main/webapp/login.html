@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link href="css/login.css" rel="stylesheet">
+</head>
+
+<body>
+<div id="loginDiv">
+    <form action="users/login" id="form">
+        <h1 id="loginMsg">LOGIN IN</h1>
+        <p>Username:<input id="username" name="username" type="text"></p>
+
+        <p>Password:<input id="password" name="password" type="password"></p>
+
+        <div id="subDiv">
+            <input type="submit" class="button" @click="login">
+            <input type="reset" class="button" value="reset">&nbsp;&nbsp;&nbsp;
+            <a href="register.html">没有账号？点击注册</a>
+        </div>
+    </form>
+</div>
+
+<script src="js/vue.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+<script src="element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+
+<script>
+    new Vue({
+        el: "#app",
+        mounted(){
+
+        },
+        methods: {
+            login() {
+                var _this = this;
+                console.log(this.brand);
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/zhdj/users/login",
+                    data: _this.brand
+                }).then(function (resp) {
+                    if (resp.data == "200") {
+                        console.log("登陆成功")
+                    }
+                })
+            },
+        },
+        data() {
+            return {
+
+                // 品牌模型数据
+                dynamic:{
+                    dynamic_id:'',
+                    time:'',
+                    content:'',
+                    type:''
+                },
+                tableData: [{
+
+                    time:'2022.1',
+
+                    content:'动态页',
+
+                    type:'动态'
+                },{
+
+                    time:'2022.2',
+
+                    content:'道具页',
+
+                    type:'道具'
+                }],
+                brand: {
+                    status: '',
+                    brandName: '',
+
+                },
+            }
+        }
+    })
+
+</script>
+</body>
+</html>

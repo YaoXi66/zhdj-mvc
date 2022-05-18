@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhdj.mappers.AllMapper">
+
+
+    <select id="selectDynamic" resultType="com.zhdj.bean.Dynamic">
+        select *
+        from dynamic
+        where type=#{type}
+        limit #{begin}, #{size};
+    </select>
+    <select id="selectUser" resultType="com.zhdj.bean.User">
+        select *from user where name=#{name} and pass=#{pass};
+    </select>
+
+    <select id="selectCollectionsId" resultType="com.zhdj.bean.Collections">
+        select * from collection
+            <where>
+                user_id=#{user_id}
+            </where>
+        limit #{begin}, #{size}
+    </select>
+    <select id="selectMessageId" resultType="com.zhdj.bean.Message">
+
+        select * from message
+        <where>
+            sender_id=#{sender_id}
+        </where>
+        limit #{begin}, #{size}
+
+    </select>
+
+    <update id="update">
+        update user
+        set name  =#{name},
+            pass  =#{pass},
+            email =#{email},
+            sex   =#{sex}
+        where id = #{id};
+    </update>
+
+    <update id="updateUserImg" parameterType="com.zhdj.bean.User">
+        update user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name !=null">
+                name=#{name},
+            </if>
+            <if test="pass !=null and pass !=''">
+                 pass = #{pass},
+            </if>
+            <if test="email !=null and email !=''">
+                 email = #{email},
+            </if># test="实体属性名"
+            <if test="sex !=null and sex !=''">
+                 sex=#{sex}= #{sex},
+            </if>
+            <if test="bg_img !=null and bg_img !=''">
+                 bg_img = #{bg_img},
+            </if>
+            <if test="header_img !=null and header_img !=''">
+                 header_img = #{header_img},
+            </if>
+            <if test="avatar !=null and avatar !=''">
+                 avatar = #{avatar},
+            </if>
+        </trim>
+        where id=#{id};
+
+    </update>
+<!--    <update id="insertFeedback" parameterType="com.zhdj.bean.FeedBack">-->
+
+<!--        -->
+
+<!--        update user-->
+<!--        <trim prefix="SET" suffixOverrides=",">-->
+<!--            <if test="content !=null">-->
+<!--                content=#{content},-->
+<!--            </if>-->
+<!--            <if test="reply !=null and reply !=''">-->
+<!--                pass = #{reply},-->
+<!--            </if>-->
+
+<!--        </trim>-->
+<!--        where id=#{id};-->
+<!--    </update>-->
+
+</mapper>

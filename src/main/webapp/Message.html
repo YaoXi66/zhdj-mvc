@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="users/sendMessage" id="form">
+    <h1 id="loginMsg">发布消息</h1>
+    <p>用户id:<input id="user_id" name="user_id" type="text"></p>
+
+    <p>对象id:<input id="sender_id" name="sender_id" type="text"></p>
+
+    <p>消息内容:<input id="content" name="content" type="text"></p>
+
+    <input type="submit" class="button" @click="login">
+
+    <input type="reset" class="button" value="reset">
+
+
+</form>
+</body>
+</html>

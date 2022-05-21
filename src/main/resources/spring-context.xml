@@ -11,6 +11,8 @@
     <context:annotation-config/>
     <!--    声明spring工厂注解扫描范围-->
     <context:component-scan base-package="com.zhdj"/>
+    <context:component-scan base-package="com.zhdj.service.impl" />
+    <context:component-scan base-package="com.zhdj.service" />
 
 
 

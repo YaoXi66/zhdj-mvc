@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping("/news")
+@RequestMapping("/news1")
 public class DynamicController{
 
     @Resource

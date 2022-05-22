@@ -1,5 +1,6 @@
 package com.zhdj.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,13 +16,17 @@ public class Dynamic {
 
     private int user_id;
 
+    @JSONField(name = "id")
     private int dynamic_id;
 
+    @JSONField(name = "sub_title")
     private String time ;
 
-    private String content;
+    private String link;
 
     private String type;
+
+    private String preview;
 
 
 

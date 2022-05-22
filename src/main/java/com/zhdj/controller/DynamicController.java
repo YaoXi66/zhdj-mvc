@@ -83,8 +83,8 @@ public class DynamicController{
         String typess = URLDecoder.decode(types, "utf-8");
 
         Dynamic dynamic = new Dynamic();
-        dynamic.setUser_id(user_id);
-        dynamic.setContent(contentss);
+//        dynamic.setUser_id(user_id);
+//        dynamic.setContent(contentss);
         dynamic.setType(typess);
         dynamic.setTime(dateFormat.format(date));
         System.out.println(dynamic);

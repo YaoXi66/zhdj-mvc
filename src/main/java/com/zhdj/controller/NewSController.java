@@ -29,6 +29,7 @@ public class NewSController {
         JSONObject res = new JSONObject();
         try{
             res.put("data",newsService.SelectDynamicList(type,page1,page2));
+            System.out.println(newsService.SelectDynamicList(type,page1,page2));
             res.put("result",200);
         }
         catch (Exception e){
@@ -75,6 +76,32 @@ public class NewSController {
         return res.toJSONString();
     }
 
+    @PostMapping(value = "/users/addCollection",produces = "text/plain;charset=utf-8")
+    public String addCollect(@RequestParam("collection_id")Integer collection_id,@RequestParam("user_id")int user_id,@RequestParam("user_id")int type){
+
+        JSONObject res = new JSONObject();
+        JSONObject msg = new JSONObject();
+    try {
+
+
+        Dynamic dynamic = newsService.selectDynamicById(collection_id);
+        System.out.println(dynamic);
+        newsService.addCollect(dynamic.getUser_id(),dynamic.getId(),dynamic.getTime(),dynamic.getType(),dynamic.getTitle(),dynamic.getPreview());
+
+    }
+    catch (Exception e)
+    {
+        msg.put("mes","SO SAD");
+        res.put("data",msg);
+        res.put("result",400);
+        return res.toJSONString();
+    }
+
+        msg.put("mes","OK");
+        res.put("data",msg);
+        res.put("result",200);
+        return res.toJSONString();
+    }
 
 
 }

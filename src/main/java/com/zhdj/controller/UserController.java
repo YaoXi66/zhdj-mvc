@@ -102,30 +102,32 @@ public class UserController {
             response.getWriter().write("用户名已存在");
         }
     }
-    @RequestMapping("/addCollection")
-    public void addCollection(Integer user_id,String collection_id,Integer type,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.setCharacterEncoding("UTF-8");
-
-        Date date = new Date();
-        SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
-        System.out.println(dateFormat.format(date));
-
-        Collections collection = new Collections(user_id,collection_id,type,dateFormat.format(date));
-
-        collection.setMes("yes!");
-        System.out.println(collection);
-        //        2.使用mybatis完成添加
-        userServlet.addCollection(collection);
-
-        response.setContentType("text/json;charset=utf-8");
-
-//        获取字符输出流到前端
-        JSONObject res = new JSONObject();
-        res.put("data",collection);
-        res.put("result",200);
-        response.getWriter().write(res.toJSONString());
-    }
+    //暂时废弃
+//    @RequestMapping("/addCollection")
+//    public void addCollection(@RequestParam("collection_id")String collection_id,@RequestParam("user_id")Integer user_id,@RequestParam("type")Integer type,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//
+//        request.setCharacterEncoding("UTF-8");
+//
+//        Date date = new Date();
+//        SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
+//        System.out.println(dateFormat.format(date));
+//
+//        Collections collection = new Collections(user_id,collection_id,type,dateFormat.format(date));
+//
+//        collection.setMes("yes!");
+//        System.out.println(collection);
+//        //        2.使用mybatis完成添加
+//        userServlet.addCollection(user_id,collection_id,type);
+//        System.out.println("here?");
+//        response.setContentType("text/json;charset=utf-8");
+//
+////        获取字符输出流到前端
+//        JSONObject res = new JSONObject();
+//        res.put("data",collection);
+//        res.put("result",200);
+//        response.getWriter().write(res.toJSONString());
+//    }
 
     @RequestMapping("/collection")
     public void collection(Integer user_id,String page1,String page2,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -265,7 +267,6 @@ public class UserController {
         System.out.println(feedBack);
 
         //2.调用service写入
-        userServlet.insertFeedback(feedBack);
 
         JSONObject res = new JSONObject();
         res.put("result",200);

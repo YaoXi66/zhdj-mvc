@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 @Service
 public class NewsServiceImpl implements NewsService {
@@ -14,6 +15,11 @@ public class NewsServiceImpl implements NewsService {
     @Autowired
     private NewsMapper newsMapper;
 
+
+    @Override
+    public Dynamic selectDynamicById(int id) {
+        return newsMapper.selectDynamicById(id);
+    }
 
     @Override
     public List<Dynamic> SelectDynamicList(int type, int page1, int page2) {
@@ -24,6 +30,12 @@ public class NewsServiceImpl implements NewsService {
     public Integer addDynamicList(int user_id, int id, String time, String link, String type, String title, String preview) {
 
         return newsMapper.addDynamicList( user_id, id, time, link,  type, title, preview);
+    }
+
+    @Override
+    public Integer addCollect(int user_id, Integer collection_id, String sub_title, Integer type, String title, String preview) {
+        newsMapper.addCollect(user_id,collection_id,new Date(),type,title,preview);
+        return null;
     }
 
 

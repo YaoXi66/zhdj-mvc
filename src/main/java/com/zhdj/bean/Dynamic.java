@@ -17,14 +17,15 @@ public class Dynamic {
     private int user_id;
 
     @JSONField(name = "id")
-    private int dynamic_id;
+    private int id;
 
     @JSONField(name = "sub_title")
     private String time ;
 
     private String link;
+    private String title;
 
-    private String type;
+    private Integer type;
 
     private String preview;
 

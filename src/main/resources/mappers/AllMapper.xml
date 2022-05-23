@@ -35,8 +35,9 @@
         limit #{begin}, #{size}
 
     </select>
-    <select id="selectBook" resultType="com.zhdj.bean.Book">
+    <select id="selectBook">
         select * from book
+
         limit #{begin}, #{size}
     </select>
 

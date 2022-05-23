@@ -4,7 +4,6 @@ package com.zhdj.service;
 
 
 import com.zhdj.bean.*;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -63,8 +62,6 @@ public interface AllServlet {
     void insertFeedback(FeedBack feedBack);
 
     void insertBook(Book book);
-
-    List<Book> selectBook(int begin,int size);
 
     void insertDynamic(Dynamic dynamic);
 

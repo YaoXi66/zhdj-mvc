@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping("/redclass")
+@RequestMapping("/redclas1s")
 public class CommunicationController {
 
     @Resource
@@ -42,18 +42,15 @@ public class CommunicationController {
     }
 
     @RequestMapping("/book")
-    public void selectBook(String page1,String page2, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        int currentPage = Integer.parseInt(page1)-1;
-        int pageSize = Integer.parseInt(page2);
-
+    public void insertBook(@RequestBody Book book, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //2.调用service查询
-        List<Book> books = communicatServlet.selectBook(currentPage, pageSize);
+        communicatServlet.insertBook(book);
         //3.储存到request中
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("data",books);
-        jsonObject.put("result",200);
-        response.getWriter().write(jsonObject.toJSONString());
+        String s = JSON.toJSONString(book);
+        response.setContentType("text/json;charset=utf-8");
+        System.out.println(s);
+
+        response.getWriter().write(s);
 
     }
 
@@ -88,73 +85,39 @@ public class CommunicationController {
         response.getWriter().write(res.toJSONString());
 
     }
-    @RequestMapping("/addMetting")
-    public void addMetting(String name,String number,String man,String link,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    @RequestMapping("/metting")
+    public void insertDynamic(String name,String number,String man,String link, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //处理POST请求的乱码问题
+
         request.setCharacterEncoding("utf-8");
 
         Date date = new Date();
         SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
         System.out.println(dateFormat.format(date));
         //        中文转码
-        String names = URLEncoder.encode(name, "iso-8859-1");
+        String contents = URLEncoder.encode(name, "iso-8859-1");
         String numbers = URLEncoder.encode(number, "iso-8859-1");
         String mans = URLEncoder.encode(man, "iso-8859-1");
         String links = URLEncoder.encode(link, "iso-8859-1");
-        String namess = URLDecoder.decode(names, "utf-8");
+        String contentss = URLDecoder.decode(contents, "utf-8");
         String numberss = URLDecoder.decode(numbers, "utf-8");
         String manss = URLDecoder.decode(mans, "utf-8");
         String linkss = URLDecoder.decode(links, "utf-8");
 
-        Course course = new Course(namess,numberss,manss,linkss,dateFormat.format(date));
+        Course course = new Course(contentss,numberss,manss,linkss,dateFormat.format(date));
 
         System.out.println(course);
 
         //2.调用service写入
         communicatServlet.insertCourse(course);
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result",200);
-        response.getWriter().write(jsonObject.toJSONString());
-
-    }
-
-
-    @RequestMapping("/metting")
-    public void selectMetting(String page1/*String name,String number,String man,String link*/,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //处理POST请求的乱码问题
-        request.setCharacterEncoding("utf-8");
-//
-//        Date date = new Date();
-//        SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
-//        System.out.println(dateFormat.format(date));
-//        //        中文转码
-//        String contents = URLEncoder.encode(name, "iso-8859-1");
-//        String numbers = URLEncoder.encode(number, "iso-8859-1");
-//        String mans = URLEncoder.encode(man, "iso-8859-1");
-//        String links = URLEncoder.encode(link, "iso-8859-1");
-//        String contentss = URLDecoder.decode(contents, "utf-8");
-//        String numberss = URLDecoder.decode(numbers, "utf-8");
-//        String manss = URLDecoder.decode(mans, "utf-8");
-//        String linkss = URLDecoder.decode(links, "utf-8");
-//
-//        Course course = new Course(contentss,numberss,manss,linkss,dateFormat.format(date));
-//
-//        System.out.println(course);
-//
-//        //2.调用service写入
-//        communicatServlet.insertCourse(course);
-
-
-        List<Course> courses = communicatServlet.selectCourse(Integer.parseInt(page1));
+        List<Course> courses = communicatServlet.selectCourse(5);
         String s = JSON.toJSONString(courses);
-//        转换成json格式
-//        response.setContentType("text/json;charset=utf-8");
+
+        response.setContentType("text/json;charset=utf-8");
         System.out.println(s);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("data",courses);
-        jsonObject.put("result",200);
-        response.getWriter().write(jsonObject.toJSONString());
+        response.getWriter().write(s);
 
     }
 

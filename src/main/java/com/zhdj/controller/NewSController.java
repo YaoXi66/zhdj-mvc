@@ -86,7 +86,8 @@ public class NewSController {
 
         Dynamic dynamic = newsService.selectDynamicById(collection_id);
         System.out.println(dynamic);
-        newsService.addCollect(dynamic.getUser_id(),dynamic.getId(),dynamic.getTime(),dynamic.getType(),dynamic.getTitle(),dynamic.getPreview());
+        System.out.println("user id"+user_id);
+        newsService.addCollect(user_id,dynamic.getId(),dynamic.getTime(),dynamic.getType(),dynamic.getTitle(),dynamic.getPreview());
 
     }
     catch (Exception e)

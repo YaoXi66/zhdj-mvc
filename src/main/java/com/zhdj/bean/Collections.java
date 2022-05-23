@@ -1,51 +1,32 @@
 package com.zhdj.bean;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.util.Date;
-
+@Data
+@ToString
 public class Collections {
-    private int user_id;
-    private int collection_id;
-    private String type;
 
-    public String getType() {
-        return type;
-    }
+    private Integer user_id;
+    private String collection_id;
+    private String title;
+    private String sub_title;
+    private String preview;
+    private Integer type;
+    private String time;
+    private String mes;
 
-    @Override
-    public String toString() {
-        return "Collection{" +
-                "user_id=" + user_id +
-                ", collection_id=" + collection_id +
-                ", type='" + type + '\'' +
-                '}';
-    }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Collections(int user_id, int collection_id, String type) {
+    public Collections(Integer user_id, String collection_id, Integer type, String time) {
         this.user_id = user_id;
         this.collection_id = collection_id;
         this.type = type;
+        this.time = time;
     }
 
-    private Date time;
-
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
-
-    public int getCollection_id() {
-        return collection_id;
-    }
-
-    public void setCollection_id(int collection_id) {
-        this.collection_id = collection_id;
-    }
 
 }

@@ -16,6 +16,8 @@
 <body>
     <h4>添加图书信息</h4>
     <form action="users/book" method="post" enctype="multipart/form-data">
+<%--    <form action="users/HeadUpload" method="post" enctype="multipart/form-data">--%>
+<%--        <p>图书id:<input type="text" name="user_id"/></p>--%>
         <p>图书id:<input type="text" name="book_id"/></p>
         <p>图书名称:<input type="text" name="title"/></p>
         <p>图书作者:<input type="text" name="author"/></p>

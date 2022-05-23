@@ -4,10 +4,7 @@ package com.zhdj.mappers;
 
 
 import com.zhdj.bean.*;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -25,7 +22,7 @@ public interface AllMapper {
     @Select("select*from user where name=#{name}")
     User selectByUsername(String name);
 
-    @Select("select*from user where id=#{id}")
+    @Select("select * from user where id=#{id}")
     User selectById(int id);
 
     @Insert("insert into collection(user_id, collection_id,type)  " +
@@ -46,6 +43,8 @@ public interface AllMapper {
     @Insert("INSERT INTO book (title, author, introduce,img_src) VALUES (#{title},#{author},#{introduce},#{img_src})")
     void insertBook(Book book);
 
+    void selectBook(@Param("begin") int begin,@Param("size") int size);
+
     @Insert("INSERT INTO dynamic (user_id,time, content, type) VALUES (#{user_id},#{time},#{content},#{type})")
     void insertDynamic(Dynamic dynamic);
 
@@ -55,6 +54,7 @@ public interface AllMapper {
     @Insert("insert into message(user_id, sender_id,content,time)  " +
             "values " +
             "(#{user_id},#{sender_id},#{content},#{time})")
+//    @ResultMap("messageResultMap")
     void addMessage(Message message);
 
     List<Message> selectMessageId(@Param("begin") int begin,@Param("size") int size,@Param("sender_id")int sender_id);

@@ -4,6 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhdj.mappers.AllMapper">
 
+<!--    <resultMap id="messageResultMap" type="com.zhdj.bean.Message">-->
+<!--        <result column="user_id"  property="uid" />-->
+<!--        <result column="sender_id"  property="mid" />-->
+<!--    </resultMap>-->
 
     <select id="selectDynamic" resultType="com.zhdj.bean.Dynamic">
         select *
@@ -31,13 +35,24 @@
         limit #{begin}, #{size}
 
     </select>
+    <select id="selectBook">
+        select * from book
+
+        limit #{begin}, #{size}
+    </select>
 
     <update id="update">
         update user
-        set name  =#{name},
-            pass  =#{pass},
-            email =#{email},
-            sex   =#{sex}
+        set id=#{id},
+            name=#{name},
+            pass=#{pass},
+            email=#{email},
+            sex=#{sex},
+            grade_id=#{grade_id},
+            bg_img=#{bg_img},
+            header_img=#{header_img}
+
+
         where id = #{id};
     </update>
 
@@ -62,9 +77,7 @@
             <if test="header_img !=null and header_img !=''">
                  header_img = #{header_img},
             </if>
-            <if test="avatar !=null and avatar !=''">
-                 avatar = #{avatar},
-            </if>
+
         </trim>
         where id=#{id};
 

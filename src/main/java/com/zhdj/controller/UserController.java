@@ -1,5 +1,7 @@
 package com.zhdj.controller;
+import com.alibaba.fastjson.JSONObject;
 import com.zhdj.bean.*;
+import com.zhdj.bean.Collections;
 import org.apache.commons.io.FileUtils;
 import com.alibaba.fastjson.JSON;
 import com.zhdj.service.AllServlet;
@@ -26,14 +28,14 @@ import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/users")
 public class UserController {
     @Resource
     private AllServlet userServlet;
+    private Collections collections1;
 
     @RequestMapping("/login")
     public void login(String username, String password, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,15 +45,17 @@ public class UserController {
 //        2.使用mybatis完成查询
         User user = userServlet.selectUser(username,password);
 
+        JSONObject res = new JSONObject();
+        res.put("data",userServlet.selectByUsername(username));
+        res.put("result",200);
+
         System.out.println(user);
         //response响应字符数据
-        response.setContentType("text/html;charset=utf-8");
+//        response.setContentType("text/json;charset=utf-8");
         PrintWriter writer = response.getWriter();
-
         if (user!=null) {
-
 //        获取字符输出流到前端
-            response.getWriter().print(result);
+            response.getWriter().print(res);
             //登陆成功
 //            writer.write("登陆成功");
         }else {
@@ -60,19 +64,18 @@ public class UserController {
     }
     @RequestMapping("/user")
     public void user(String id, HttpServletResponse response) throws ServletException, IOException {
-
-        System.out.println(id);
-
 //        2.使用mybatis完成查询
-        User user = userServlet.selectById(Integer.parseInt(id));
+        JSONObject res = new JSONObject();
+        res.put("data",userServlet.selectById(Integer.parseInt(id)));
+        System.out.println(userServlet.selectById(Integer.parseInt(id)));
+        res.put("result",200);
 
-        System.out.println(user);
-        //response响应字符数据
-        String s = JSON.toJSONString(user);
-
-        response.setContentType("text/json;charset=utf-8");
-//        获取字符输出流到前端
-        response.getWriter().write(s);
+//        System.out.println(user);
+//        //response响应字符数据
+//        String s = JSON.toJSONString(user);
+//        System.out.println(s);
+//        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(res.toJSONString());
 
     }
     @RequestMapping("/register")
@@ -80,6 +83,10 @@ public class UserController {
 
         //        2.使用mybatis完成查询
         User user = userServlet.selectByUsername(username);
+        JSONObject jsonObject = new JSONObject();
+        int result=200;
+        jsonObject.put("data","result");
+        jsonObject.put("result",result);
 
 //        判断用户对象是否为null
         if(user==null) {
@@ -89,38 +96,39 @@ public class UserController {
             System.out.println(user1);
             userServlet.addUser(user1);
             response.setContentType("text/html;charset=utf-8");
-            response.getWriter().print(200);
+            response.getWriter().print(jsonObject);
         }else{
             response.setContentType("text/html;charset=utf-8");
             response.getWriter().write("用户名已存在");
         }
     }
     @RequestMapping("/addCollection")
-    public void addCollection(String user_id,String collection_id,String type,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void addCollection(Integer user_id,String collection_id,Integer type,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
 
-//        String user_id = request.getParameter("user_id");
-//        String collection_id = request.getParameter("collection_id");
-//        String type = request.getParameter("type");
-//        中文转码
-        String decode = URLEncoder.encode(type, "iso-8859-1");
-        System.out.println(decode);
-        String encode = URLDecoder.decode(decode, "utf-8");
-        System.out.println(encode);
+        Date date = new Date();
+        SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
+        System.out.println(dateFormat.format(date));
 
-        Collections collection = new Collections(Integer.parseInt(user_id),Integer.parseInt(collection_id),encode);
+        Collections collection = new Collections(user_id,collection_id,type,dateFormat.format(date));
+
+        collection.setMes("yes!");
         System.out.println(collection);
         //        2.使用mybatis完成添加
         userServlet.addCollection(collection);
 
-//        response.setContentType("text/json;charset=utf-8");
+        response.setContentType("text/json;charset=utf-8");
+
 //        获取字符输出流到前端
-        response.getWriter().write("success");
+        JSONObject res = new JSONObject();
+        res.put("data",collection);
+        res.put("result",200);
+        response.getWriter().write(res.toJSONString());
     }
 
     @RequestMapping("/collection")
-    public void collection(String user_id,String page1,String page2,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void collection(Integer user_id,String page1,String page2,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
 //        //1.接受用户名和密码
@@ -133,19 +141,23 @@ public class UserController {
         System.out.println(user_id);
 
 //        2.使用mybatis完成查询
-        List<Collections> collections = userServlet.selectCollectionsId(currentPage, pageSize,Integer.parseInt(user_id));
+        List<Collections> collections = userServlet.selectCollectionsId(currentPage, pageSize,user_id);
 
         System.out.println(collections);
         //response响应字符数据
-        String s = JSON.toJSONString(collections);
+//        String s = JSON.toJSONString(collections);
+//        System.out.println(s);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("",jsonObject.put("data",collections));
+        jsonObject.put("result",200);
 
         response.setContentType("text/json;charset=utf-8");
 //        获取字符输出流到前端
-        response.getWriter().write(s);
+        response.getWriter().write(jsonObject.toJSONString());
 
     }
 
-    @RequestMapping("/updateUser")
+    @RequestMapping("/updateUsers")
     public void updateUser(String id,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         //2.调用service查询
@@ -156,7 +168,7 @@ public class UserController {
         request.getRequestDispatcher("/update.jsp").forward(request,response);
     }
 
-    @RequestMapping("/updateServlet")
+    @RequestMapping("/updateUser")
     public void updateServlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("updateServlet");
         //处理POST请求的乱码问题
@@ -164,33 +176,38 @@ public class UserController {
 
         //1. 接收表单提交的数据，封装为一个Brand对象
         String id = request.getParameter("id");
-        String name = request.getParameter("name");
         String pass = request.getParameter("pass");
         String email = request.getParameter("email");
         String sex = request.getParameter("sex");
         String bg_img = request.getParameter("bg_img");
-        String header_img = request.getParameter("header_img");
+
 
 
         //封装为一个User对象
-        User user = new User();
-        user.setId(Integer.parseInt(id));
-        user.setName(name);
+        User user = userServlet.selectById(Integer.parseInt(id));
         user.setPass(pass);
         user.setEmail(email);
         user.setSex(sex);
         user.setBg_img(bg_img);
-        user.setHeader_img(header_img);
 
 
+        System.out.println(user);
         //2. 调用service 完成修改
         userServlet.update(user);
+
+        JSONObject res = new JSONObject();
+        res.put("data",userServlet.selectById(Integer.parseInt(id)));
+        System.out.println(userServlet.selectById(Integer.parseInt(id)));
+        res.put("result",200);
+
+        response.getWriter().write(res.toJSONString());
+
     }
 
     @RequestMapping("/HeadUpload")
-    public void HeadUpload(User user, MultipartFile file, HttpServletRequest request) throws IOException {
+    public void HeadUpload(Integer user_id, MultipartFile file, HttpServletRequest request) throws IOException {
         System.out.println("------------HeadUpload");
-        String id = request.getParameter("id");
+//        String id = request.getParameter("user_id");
 
 //        1..获取图片后缀名，生成新的文件
         String originalFilename = file.getOriginalFilename();
@@ -206,8 +223,9 @@ public class UserController {
         file.transferTo(new File(savePath));
 
 //        4.将图片访问路径设置到user对象
+        User user = new User();
         user.setHeader_img("imgs/"+fileName);
-        user.setId(Integer.parseInt(id));
+        user.setId(user_id);
 
         System.out.println(user);
         System.out.println(user.getHeader_img());
@@ -216,6 +234,11 @@ public class UserController {
 //        5.调用service保存user到数据库
         userServlet.updateUserImg(user);
 
+        JSONObject res = new JSONObject();
+        res.put("data",userServlet.selectById(user_id));
+        System.out.println(userServlet.selectById(user_id));
+        res.put("result",200);
+        System.out.println(res.toJSONString());
 
     }
 
@@ -241,15 +264,20 @@ public class UserController {
 
         System.out.println(feedBack);
 
-        //2.调用service查询
+        //2.调用service写入
         userServlet.insertFeedback(feedBack);
+
+        JSONObject res = new JSONObject();
+        res.put("result",200);
+        System.out.println(res.toJSONString());
+        response.getWriter().write(res.toJSONString());
     }
 
     @RequestMapping("/sendMessage")
-        public void addMessage(int user_id,int sender_id,String content,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        public void addMessage(int uid,int mid,String content,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-
+        System.out.println("sendMessage");
 
         Date date = new Date();
         SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
@@ -260,17 +288,23 @@ public class UserController {
         String encode = URLDecoder.decode(decode, "utf-8");
         System.out.println(encode);
 
-        Message message = new Message(user_id,sender_id,encode,dateFormat.format(date));
+        Message message = new Message();
+        message.setUser_id(uid);
+        message.setSender_id(mid);
+        message.setContent(encode);
+        message.setTime(dateFormat.format(date));
+        System.out.println(message);
         //        2.使用mybatis完成添加
         userServlet.addMessage(message);
 
-//        response.setContentType("text/json;charset=utf-8");
-//        获取字符输出流到前端
-        response.getWriter().write("success");
+        JSONObject res = new JSONObject();
+        res.put("result",200);
+        System.out.println(res.toJSONString());
+        response.getWriter().write(res.toJSONString());
     }
 
     @RequestMapping("/message")
-    public void selectMessageId(int sender_id,String page1,String page2,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void selectMessageId(int mid,String page1,String page2,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
 //        //1.接受用户名和密码
@@ -280,10 +314,10 @@ public class UserController {
 
         int currentPage = Integer.parseInt(page1)-1;
         int pageSize = Integer.parseInt(page2);
-        System.out.println(sender_id);
+        System.out.println(mid);
 
 //        2.使用mybatis完成查询
-        List<Message> messages = userServlet.selectMessageId(currentPage, pageSize,sender_id);
+        List<Message> messages = userServlet.selectMessageId(currentPage, pageSize,mid);
 
         System.out.println(messages);
         //response响应字符数据
@@ -291,8 +325,11 @@ public class UserController {
 
         response.setContentType("text/json;charset=utf-8");
 //        获取字符输出流到前端
-        response.getWriter().write(s);
-
+        JSONObject res = new JSONObject();
+        res.put("data",messages);
+        res.put("result",200);
+        System.out.println(res.toJSONString());
+        response.getWriter().write(res.toJSONString());
     }
 
 

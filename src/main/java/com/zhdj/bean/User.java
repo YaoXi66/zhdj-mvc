@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 @ToString
 public class User {
+
     private Integer id;
 
     private String name;
@@ -22,10 +23,10 @@ public class User {
 
     private String sex;
 
+    private Integer grade_id;
+
     private String bg_img ;
 
     private String header_img ;
-
-    private MultipartFile avatar;
 
 }

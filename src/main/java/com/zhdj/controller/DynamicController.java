@@ -30,7 +30,7 @@ public class DynamicController{
 
     @Resource
     private AllServlet dynamicServlet;
-
+    @RequestMapping("/all")
     public void all(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String type = request.getParameter("type");

@@ -14,5 +14,6 @@ public class Message {
     private int sender_id;
     private String content;
     private String time;
+    private Integer message_id;
 
 }

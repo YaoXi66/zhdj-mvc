@@ -2,6 +2,7 @@ package com.zhdj.controller;
 
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.zhdj.bean.*;
 import com.zhdj.service.AllServlet;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,6 +27,19 @@ public class CommunicationController {
 
     @Resource
     private AllServlet communicatServlet;
+
+    @RequestMapping("/books")
+    public void insertBooks(@RequestBody Book book, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //2.调用service查询
+        communicatServlet.insertBook(book);
+        //3.储存到request中
+        String s = JSON.toJSONString(book);
+        response.setContentType("text/json;charset=utf-8");
+        System.out.println(s);
+
+        response.getWriter().write(s);
+
+    }
 
     @RequestMapping("/book")
     public void insertBook(@RequestBody Book book, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -65,7 +79,10 @@ public class CommunicationController {
         //2.调用service写入
         communicatServlet.insertCommunication(communication);
 
-        response.getWriter().write("success");
+        JSONObject res = new JSONObject();
+        res.put("result",200);
+        System.out.println(res.toJSONString());
+        response.getWriter().write(res.toJSONString());
 
     }
 

@@ -19,6 +19,6 @@ public class Communication {
 
     private int id;
 
-
+//    private String msg;
 
 }

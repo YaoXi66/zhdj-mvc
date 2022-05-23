@@ -12,7 +12,6 @@ import lombok.ToString;
 @ToString
 public class Book {
 
-
     private Integer book_id;
     private String title;
     private String author;

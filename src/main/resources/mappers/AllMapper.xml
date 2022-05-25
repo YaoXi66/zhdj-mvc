@@ -29,9 +29,9 @@
     <select id="selectMessageId" resultType="com.zhdj.bean.Message">
 
         select * from message
-        <where>
-            sender_id=#{sender_id}
-        </where>
+<!--        <where>-->
+<!--            sender_id=#{sender_id}-->
+<!--        </where>-->
         limit #{begin}, #{size}
 
     </select>

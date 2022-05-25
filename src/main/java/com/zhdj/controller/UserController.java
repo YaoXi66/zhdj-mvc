@@ -66,7 +66,8 @@ public class UserController {
     public void user(String id, HttpServletResponse response) throws ServletException, IOException {
 //        2.使用mybatis完成查询
         JSONObject res = new JSONObject();
-        res.put("data",userServlet.selectById(Integer.parseInt(id)));
+        User user = userServlet.selectById(Integer.parseInt(id));
+        res.put("data",user);
         System.out.println(userServlet.selectById(Integer.parseInt(id)));
         res.put("result",200);
 
@@ -206,64 +207,19 @@ public class UserController {
 
     }
 
-//    @RequestMapping("/HeadUpload")
-//    public void HeadUpload(Integer user_id, MultipartFile file, HttpServletRequest request) throws IOException {
-//        System.out.println("------------HeadUpload");
-////        String id = request.getParameter("user_id");
-//
-////        1..获取图片后缀名，生成新的文件
-//        String originalFilename = file.getOriginalFilename();
-//        String ext = originalFilename.substring(originalFilename.lastIndexOf("."));//.jsp
-//        System.out.println(ext);
-//        String fileName=System.currentTimeMillis()+ext;
-//
-////        2.获取imgs目录在服务器的路径
-//        String dir = request.getServletContext().getRealPath("imgs");
-//        String savePath = dir + "/" + fileName;
-//
-////        3.保存文件
-//        file.transferTo(new File(savePath));
-//
-////        4.将图片访问路径设置到user对象
-//        User user = new User();
-//        user.setHeader_img("imgs/"+fileName);
-//        user.setId(user_id);
-//
-//        System.out.println(user);
-//        System.out.println(user.getHeader_img());
-//        System.out.println(user.getId());
-//
-////        5.调用service保存user到数据库
-//        userServlet.updateUserImg(user);
-//
-//        JSONObject res = new JSONObject();
-//        res.put("data",userServlet.selectById(user_id));
-//        System.out.println(userServlet.selectById(user_id));
-//        res.put("result",200);
-//        System.out.println(res.toJSONString());
-//
-//    }
 
-    @RequestMapping("/feedback")
+    @RequestMapping(value = "/feedback",produces = "text/plain;charset=utf-8")
     public void insertFeedback(String user_id,String content,String reply,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //处理POST请求的乱码问题
         request.setCharacterEncoding("utf-8");
-
-        //        中文转码
-        System.out.println(content+"content");
-        String decode = URLEncoder.encode(content, "iso-8859-1");
-        String decodes = URLEncoder.encode(reply, "iso-8859-1");
-        System.out.println(decode+"decode");
-        String encode = URLDecoder.decode(decode, "utf-8");
-        String encodes = URLDecoder.decode(decodes, "utf-8");
 
 
         FeedBack feedBack = new FeedBack();
         feedBack.setUser_id(user_id);
 
-        feedBack.setContent(encode);
-        feedBack.setReply(encodes);
-
+        feedBack.setContent(content);
+        feedBack.setReply(reply);
+        userServlet.insertFeedback(feedBack);
         System.out.println(feedBack);
 
         //2.调用service写入
@@ -274,7 +230,7 @@ public class UserController {
         response.getWriter().write(res.toJSONString());
     }
 
-    @RequestMapping("/sendMessage")
+    @RequestMapping(value = "/sendMessage",produces = "text/plain;charset=utf-8")
         public void addMessage(int uid,int mid,String content,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
@@ -305,15 +261,15 @@ public class UserController {
     }
 
     @RequestMapping("/message")
-    public void selectMessageId(int mid,String page1,String page2,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void selectMessageId(String page1,String page2,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
 //        //1.接受用户名和密码
 //        String user_id = request.getParameter("user_id");
 //        String _currentPage = request.getParameter("page1");
 //        String _pageSize = request.getParameter("page2");
-
-        int currentPage = Integer.parseInt(page1)-1;
+    int mid = 0;
+        int currentPage = Integer.parseInt(page1);
         int pageSize = Integer.parseInt(page2);
         System.out.println(mid);
 

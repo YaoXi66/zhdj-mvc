@@ -132,7 +132,7 @@ public class ServletImpl implements AllServlet {
     public List<Message> selectMessageId(int currentPage, int pageSize, int sender_id) {
 
         //        调用方法
-        List<Message> rows = allMapper.selectMessageId(currentPage,pageSize,sender_id);
+        List<Message> rows = allMapper.selectMessageId(currentPage,pageSize);
 
         return rows;
 

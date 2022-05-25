@@ -33,6 +33,8 @@ public class NewSController {
     @Autowired
     private HttpServletResponse httpServletResponse;
 
+    @Resource
+    private AllServlet communicatServlet;
     public String GetNewsHanderError(int type ,int page1,int page2){
         JSONObject res = new JSONObject();
         try{
@@ -141,6 +143,15 @@ public class NewSController {
 
     }
 
-
+//    @GetMapping(value = "/redclass/book",produces = "text/plain;charset=utf-8")
+//    public String GetBook(){
+//        JSONObject res = new JSONObject();
+//
+//
+//        communicatServlet.
+//        res.put("data","总之！你错了");
+//        res.put("result",400);
+//        return res.toJSONString();
+//    }
 
 }

@@ -57,7 +57,7 @@ public interface AllMapper {
 //    @ResultMap("messageResultMap")
     void addMessage(Message message);
 
-    List<Message> selectMessageId(@Param("begin") int begin,@Param("size") int size,@Param("sender_id")int sender_id);
+    List<Message> selectMessageId(@Param("begin") int begin,@Param("size") int size);
 
     @Insert("insert into course(name,number,man,link,time)  " +
             "values " +

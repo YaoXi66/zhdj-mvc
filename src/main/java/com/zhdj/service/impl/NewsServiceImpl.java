@@ -38,5 +38,11 @@ public class NewsServiceImpl implements NewsService {
         return null;
     }
 
+    @Override
+    public Integer updateHead(String filePath, int user_id) {
+        newsMapper.updateHead(filePath,user_id);
+        return null;
+    }
+
 
 }

@@ -11,7 +11,9 @@
     <mvc:default-servlet-handler/>
     <!--    声明mvc采用注解驱动-->
     <mvc:annotation-driven/>
-
+    <mvc:cors>
+        <mvc:mapping path="/**" />
+    </mvc:cors>
     <mvc:resources mapping="/js/**" location="/js/"/>
 
 

@@ -4,6 +4,7 @@ import com.zhdj.bean.Dynamic;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.Date;
 import java.util.List;
@@ -21,4 +22,6 @@ public interface NewsMapper {
     @Select(" insert into `collection` (`user_id`, `collection_id`, `time`, `type`, `title`, `preview`) values (#{user_id}, #{collection_id}, #{time},#{type}, #{title}, #{preview})")
     Integer addCollect(@Param("user_id") int user_id, @Param("collection_id") Integer collection_id, @Param("time") Date time, @Param("type") Integer type, @Param("title") String title, @Param("preview") String preview);
 
+    @Update("UPDATE `user` SET `bg_img` = #{filePath} WHERE `id` = #{id} ")
+    Integer updateHead(@Param("filePath")String filePath,@Param("id")int user_id);
 }

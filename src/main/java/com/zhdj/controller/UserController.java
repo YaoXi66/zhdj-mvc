@@ -206,43 +206,43 @@ public class UserController {
 
     }
 
-    @RequestMapping("/HeadUpload")
-    public void HeadUpload(Integer user_id, MultipartFile file, HttpServletRequest request) throws IOException {
-        System.out.println("------------HeadUpload");
-//        String id = request.getParameter("user_id");
-
-//        1..获取图片后缀名，生成新的文件
-        String originalFilename = file.getOriginalFilename();
-        String ext = originalFilename.substring(originalFilename.lastIndexOf("."));//.jsp
-        System.out.println(ext);
-        String fileName=System.currentTimeMillis()+ext;
-
-//        2.获取imgs目录在服务器的路径
-        String dir = request.getServletContext().getRealPath("imgs");
-        String savePath = dir + "/" + fileName;
-
-//        3.保存文件
-        file.transferTo(new File(savePath));
-
-//        4.将图片访问路径设置到user对象
-        User user = new User();
-        user.setHeader_img("imgs/"+fileName);
-        user.setId(user_id);
-
-        System.out.println(user);
-        System.out.println(user.getHeader_img());
-        System.out.println(user.getId());
-
-//        5.调用service保存user到数据库
-        userServlet.updateUserImg(user);
-
-        JSONObject res = new JSONObject();
-        res.put("data",userServlet.selectById(user_id));
-        System.out.println(userServlet.selectById(user_id));
-        res.put("result",200);
-        System.out.println(res.toJSONString());
-
-    }
+//    @RequestMapping("/HeadUpload")
+//    public void HeadUpload(Integer user_id, MultipartFile file, HttpServletRequest request) throws IOException {
+//        System.out.println("------------HeadUpload");
+////        String id = request.getParameter("user_id");
+//
+////        1..获取图片后缀名，生成新的文件
+//        String originalFilename = file.getOriginalFilename();
+//        String ext = originalFilename.substring(originalFilename.lastIndexOf("."));//.jsp
+//        System.out.println(ext);
+//        String fileName=System.currentTimeMillis()+ext;
+//
+////        2.获取imgs目录在服务器的路径
+//        String dir = request.getServletContext().getRealPath("imgs");
+//        String savePath = dir + "/" + fileName;
+//
+////        3.保存文件
+//        file.transferTo(new File(savePath));
+//
+////        4.将图片访问路径设置到user对象
+//        User user = new User();
+//        user.setHeader_img("imgs/"+fileName);
+//        user.setId(user_id);
+//
+//        System.out.println(user);
+//        System.out.println(user.getHeader_img());
+//        System.out.println(user.getId());
+//
+////        5.调用service保存user到数据库
+//        userServlet.updateUserImg(user);
+//
+//        JSONObject res = new JSONObject();
+//        res.put("data",userServlet.selectById(user_id));
+//        System.out.println(userServlet.selectById(user_id));
+//        res.put("result",200);
+//        System.out.println(res.toJSONString());
+//
+//    }
 
     @RequestMapping("/feedback")
     public void insertFeedback(String user_id,String content,String reply,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

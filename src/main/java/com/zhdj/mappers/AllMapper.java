@@ -43,7 +43,7 @@ public interface AllMapper {
     @Insert("INSERT INTO book (title, author, introduce,img_src) VALUES (#{title},#{author},#{introduce},#{img_src})")
     void insertBook(Book book);
 
-    void selectBook(@Param("begin") int begin,@Param("size") int size);
+
 
     @Insert("INSERT INTO dynamic (user_id,time, content, type) VALUES (#{user_id},#{time},#{content},#{type})")
     void insertDynamic(Dynamic dynamic);

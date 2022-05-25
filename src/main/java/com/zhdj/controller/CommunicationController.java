@@ -41,18 +41,7 @@ public class CommunicationController {
 
     }
 
-    @RequestMapping("/book")
-    public void insertBook(@RequestBody Book book, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //2.调用service查询
-        communicatServlet.insertBook(book);
-        //3.储存到request中
-        String s = JSON.toJSONString(book);
-        response.setContentType("text/json;charset=utf-8");
-        System.out.println(s);
-        System.out.println("已修改");
-        response.getWriter().write(s);
 
-    }
 
 //    心声
     @RequestMapping("/addDeliver")

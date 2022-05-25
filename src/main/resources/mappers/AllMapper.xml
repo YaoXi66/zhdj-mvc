@@ -35,11 +35,7 @@
         limit #{begin}, #{size}
 
     </select>
-    <select id="selectBook">
-        select * from book
 
-        limit #{begin}, #{size}
-    </select>
 
     <update id="update">
         update user

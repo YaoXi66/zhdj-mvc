@@ -49,7 +49,7 @@ public class CommunicationController {
         String s = JSON.toJSONString(book);
         response.setContentType("text/json;charset=utf-8");
         System.out.println(s);
-
+        System.out.println("已修改");
         response.getWriter().write(s);
 
     }

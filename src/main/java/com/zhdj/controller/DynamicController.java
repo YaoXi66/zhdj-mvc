@@ -1,27 +1,16 @@
 package com.zhdj.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.zhdj.bean.Book;
-import com.zhdj.bean.Course;
 import com.zhdj.bean.Dynamic;
-import com.zhdj.bean.Message;
 import com.zhdj.service.AllServlet;
-import com.zhdj.service.impl.ServletImpl;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Controller

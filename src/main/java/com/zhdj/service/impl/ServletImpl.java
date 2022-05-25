@@ -4,8 +4,6 @@ package com.zhdj.service.impl;
 import com.zhdj.bean.*;
 import com.zhdj.mappers.AllMapper;
 import com.zhdj.service.AllServlet;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

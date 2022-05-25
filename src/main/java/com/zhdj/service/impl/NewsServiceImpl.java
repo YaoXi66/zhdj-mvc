@@ -1,6 +1,7 @@
 package com.zhdj.service.impl;
 
 import com.zhdj.bean.Dynamic;
+import com.zhdj.bean.Vr;
 import com.zhdj.mappers.NewsMapper;
 import com.zhdj.service.NewsService;
 import org.apache.ibatis.annotations.Param;
@@ -42,6 +43,11 @@ public class NewsServiceImpl implements NewsService {
     public Integer updateHead(String filePath, int user_id) {
         newsMapper.updateHead(filePath,user_id);
         return null;
+    }
+
+    @Override
+    public  List<Vr> SelectVrlist(Integer page1, Integer page2) {
+        return newsMapper.SelectVrlist(page1,page2);
     }
 
 

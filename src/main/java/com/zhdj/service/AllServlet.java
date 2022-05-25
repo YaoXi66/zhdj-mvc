@@ -44,8 +44,6 @@ public interface AllServlet {
      */
     void addCollection(Collections collection);
 
-
-    List<Book> selectBook(int begin,int size);
     /**
      * 查询用户收藏
      * @param user_id
@@ -64,6 +62,8 @@ public interface AllServlet {
     void insertFeedback(FeedBack feedBack);
 
     void insertBook(Book book);
+
+    List<Book> selectBook(int begin,int size);
 
     void insertDynamic(Dynamic dynamic);
 

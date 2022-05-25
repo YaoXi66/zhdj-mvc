@@ -1,10 +1,9 @@
 package com.zhdj.mappers;
 
 import com.zhdj.bean.Dynamic;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.zhdj.bean.Vr;
+import lombok.Singular;
+import org.apache.ibatis.annotations.*;
 
 import java.util.Date;
 import java.util.List;
@@ -24,4 +23,10 @@ public interface NewsMapper {
 
     @Update("UPDATE `user` SET `header_img` = #{filePath} WHERE `id` = #{id} ")
     Integer updateHead(@Param("filePath")String filePath,@Param("id")int user_id);
+
+
+    @Select("SELECT * FROM `vrlist` LIMIT #{page1},#{page2}")
+    List<Vr>  SelectVrlist(@Param("page1")Integer page1, @Param("page2")Integer page2);
+
+
 }

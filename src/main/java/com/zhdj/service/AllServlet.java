@@ -63,6 +63,8 @@ public interface AllServlet {
 
     void insertBook(Book book);
 
+    List<Book> selectBook(int begin,int size);
+
     void insertDynamic(Dynamic dynamic);
 
     void insertCommunication(Communication communication);

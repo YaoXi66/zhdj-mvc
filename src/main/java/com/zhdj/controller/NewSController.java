@@ -153,7 +153,7 @@ public class NewSController {
 //        res.put("result",400);
 //        return res.toJSONString();
 //    }
-    @GetMapping("/redclass/vrlist")
+    @GetMapping(value = "/redclass/vrlist",produces = "text/plain;charset=utf-8")
     public String GetVrlist(@RequestParam("page1")Integer page1,@RequestParam("page2")Integer page2){
         JSONObject res = new JSONObject();
         res.put("data",newsService.SelectVrlist(page1, page2));

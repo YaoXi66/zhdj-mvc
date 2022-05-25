@@ -14,4 +14,5 @@ public class Vr {
     String name;
     String url;
     String preview;
+    String img_url;
 }

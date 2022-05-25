@@ -36,6 +36,10 @@
 
     </select>
 
+    <select id="selectBook" resultType="com.zhdj.bean.Book">
+        select * from book
+        limit #{begin}, #{size}
+    </select>
 
     <update id="update">
         update user

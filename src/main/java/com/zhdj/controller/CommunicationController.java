@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping("/redclas1s")
+@RequestMapping("/redclass")
 public class CommunicationController {
 
     @Resource
@@ -41,7 +41,21 @@ public class CommunicationController {
 
     }
 
+    @RequestMapping("/book")
+    public void selectBook(String page1,String page2, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println(page1+page2);
+        int currentPage = Integer.parseInt(page1)-1;
+        int pageSize = Integer.parseInt(page2);
 
+        //2.调用service查询
+        List<Book> books = communicatServlet.selectBook(currentPage, pageSize);
+        //3.储存到request中
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("data",books);
+        jsonObject.put("result",200);
+        response.getWriter().write(jsonObject.toJSONString());
+
+    }
 
 //    心声
     @RequestMapping("/addDeliver")

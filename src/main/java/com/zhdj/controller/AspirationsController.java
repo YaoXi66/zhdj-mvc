@@ -48,11 +48,12 @@ public class AspirationsController {
     @PostMapping(value = "/redclass/addDeliver",produces = "text/plain;charset=utf-8")
     public String addAspirations(@RequestParam("user_id") int user_id,@RequestParam("content") String content){
         JSONObject res = new JSONObject();
-        if (hearthService.addMyWish(content,new Date(),user_id) == 0) {
-            res.put("data","");
-            res.put("result",400);
-            return res.toJSONString();
-        }
+//        if ( == 0) {
+//            res.put("data","");
+//            res.put("result",400);
+//            return res.toJSONString();
+//        }
+        hearthService.addMyWish(content,new Date(),user_id);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("msg", " 鉴定为寄");
         res.put("data", jsonObject);

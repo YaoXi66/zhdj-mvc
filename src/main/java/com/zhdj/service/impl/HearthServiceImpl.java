@@ -40,13 +40,8 @@ public class HearthServiceImpl implements HearthService {
 
     @Override
     public int addMyWish(String content, Date time, int user_id) {
-        try{
-            return    hearthMapper.addMyWish(content,time,user_id);
-        }
-        catch (Exception e){
-            return 0;
-        }
-
+        hearthMapper.addMyWish(content,new Date(),user_id);
+        return 0;
 
     }
 }

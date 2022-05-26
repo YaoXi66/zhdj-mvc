@@ -107,8 +107,11 @@ public class ServletImpl implements AllServlet {
 
     @Override
     public List<Book> selectBook(int begin, int size) {
+
         List<Book> books = allMapper.selectBook(begin, size);
+
         return books;
+
     }
 
     @Override

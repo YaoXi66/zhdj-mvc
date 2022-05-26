@@ -43,7 +43,7 @@ public class CommunicationController {
 
     @RequestMapping("/book")
     public void selectBook(String page1,String page2, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println(page1+page2);
+
         int currentPage = Integer.parseInt(page1)-1;
         int pageSize = Integer.parseInt(page2);
 

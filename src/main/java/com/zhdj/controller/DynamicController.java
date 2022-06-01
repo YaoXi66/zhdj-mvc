@@ -2,7 +2,7 @@ package com.zhdj.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.zhdj.bean.Dynamic;
-import com.zhdj.service.AllServlet;
+import com.zhdj.service.AllService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,7 +18,7 @@ import java.util.List;
 public class DynamicController{
 
     @Resource
-    private AllServlet dynamicServlet;
+    private AllService dynamicServlet;
     @RequestMapping("/all")
     public void all(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

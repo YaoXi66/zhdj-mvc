@@ -4,7 +4,7 @@ package com.zhdj.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.zhdj.bean.*;
-import com.zhdj.service.AllServlet;
+import com.zhdj.service.AllService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +26,7 @@ import java.util.List;
 public class CommunicationController {
 
     @Resource
-    private AllServlet communicatServlet;
+    private AllService communicatServlet;
 
     @RequestMapping("/books")
     public void insertBooks(@RequestBody Book book, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

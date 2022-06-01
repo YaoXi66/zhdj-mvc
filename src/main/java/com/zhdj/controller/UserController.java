@@ -3,7 +3,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.zhdj.bean.*;
 import com.zhdj.bean.Collections;
 import com.alibaba.fastjson.JSON;
-import com.zhdj.service.AllServlet;
+import com.zhdj.service.AllService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,7 +22,7 @@ import java.util.*;
 @RequestMapping("/users")
 public class UserController {
     @Resource
-    private AllServlet userServlet;
+    private AllService userServlet;
     private Collections collections1;
 
     @RequestMapping("/login")

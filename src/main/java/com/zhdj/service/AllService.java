@@ -7,7 +7,7 @@ import com.zhdj.bean.*;
 
 import java.util.List;
 
-public interface AllServlet {
+public interface AllService {
     /**
      * 查询动态表所有
      * @return

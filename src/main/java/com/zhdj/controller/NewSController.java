@@ -1,28 +1,19 @@
 package com.zhdj.controller;
 
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zhdj.bean.Dynamic;
-import com.zhdj.service.AllServlet;
+import com.zhdj.service.AllService;
 import com.zhdj.service.NewsService;
 import lombok.SneakyThrows;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.List;
 
 @RestController
 public class NewSController {
@@ -34,7 +25,7 @@ public class NewSController {
     private HttpServletResponse httpServletResponse;
 
     @Resource
-    private AllServlet communicatServlet;
+    private AllService communicatServlet;
     public String GetNewsHanderError(int type ,int page1,int page2){
         JSONObject res = new JSONObject();
         try{

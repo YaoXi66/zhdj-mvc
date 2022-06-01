@@ -3,14 +3,14 @@ package com.zhdj.service.impl;
 
 import com.zhdj.bean.*;
 import com.zhdj.mappers.AllMapper;
-import com.zhdj.service.AllServlet;
+import com.zhdj.service.AllService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class ServletImpl implements AllServlet {
+public class AllServiceImpl implements AllService {
 
     @Resource
     private AllMapper allMapper;

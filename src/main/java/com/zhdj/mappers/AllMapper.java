@@ -14,9 +14,9 @@ public interface AllMapper {
 
     User selectUser(@Param("name") String username, @Param("pass") String password);
 
-    @Insert("insert into user(name, pass, email, sex, bg_img, header_img)  " +
+    @Insert("insert into user(name, pass, email,grade_id,sex, bg_img, header_img)  " +
             "values " +
-            "(#{name},#{pass},#{email},#{sex},#{bg_img},#{header_img})")
+            "(#{name},#{pass},#{email},#{grade_id},#{sex},#{bg_img},#{header_img})")
     void addUser(User user);
 
     @Select("select*from user where name=#{name}")

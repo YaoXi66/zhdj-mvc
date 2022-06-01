@@ -82,6 +82,7 @@ public class UserController {
             User user1 = new User();
             user1.setName(username);
             user1.setPass(password);
+            user1.setGrade_id(1);
             System.out.println(user1);
             userServlet.addUser(user1);
             response.setContentType("text/html;charset=utf-8");

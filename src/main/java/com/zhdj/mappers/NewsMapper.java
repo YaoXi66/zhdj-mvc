@@ -1,6 +1,7 @@
 package com.zhdj.mappers;
 
 import com.zhdj.bean.Dynamic;
+import com.zhdj.bean.Exam;
 import com.zhdj.bean.Vr;
 import lombok.Singular;
 import org.apache.ibatis.annotations.*;
@@ -27,6 +28,9 @@ public interface NewsMapper {
 
     @Select("SELECT * FROM `vrlist` LIMIT #{page1},#{page2}")
     List<Vr>  SelectVrlist(@Param("page1")Integer page1, @Param("page2")Integer page2);
+
+    @Select("SELECT * FROM `exam` LIMIT #{page1},#{page2}")
+    List<Exam>  SelectExamlist(@Param("page1")Integer page1, @Param("page2")Integer page2);
 
 
 }

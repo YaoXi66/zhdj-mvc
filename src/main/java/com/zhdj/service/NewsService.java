@@ -1,6 +1,7 @@
 package com.zhdj.service;
 
 import com.zhdj.bean.Dynamic;
+import com.zhdj.bean.Exam;
 import com.zhdj.bean.Vr;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
@@ -19,4 +20,6 @@ public interface NewsService {
     Integer updateHead(String filePath,int user_id);
 
     List<Vr> SelectVrlist(Integer page1, Integer page2);
+
+    List<Exam> SelectEXamlist(Integer page1, Integer page2);
 }

@@ -1,6 +1,7 @@
 package com.zhdj.service.impl;
 
 import com.zhdj.bean.Dynamic;
+import com.zhdj.bean.Exam;
 import com.zhdj.bean.Vr;
 import com.zhdj.mappers.NewsMapper;
 import com.zhdj.service.NewsService;
@@ -48,6 +49,11 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public  List<Vr> SelectVrlist(Integer page1, Integer page2) {
         return newsMapper.SelectVrlist(page1,page2);
+    }
+
+    @Override
+    public List<Exam> SelectEXamlist(Integer page1, Integer page2) {
+        return newsMapper.SelectExamlist(page1,page2);
     }
 
 

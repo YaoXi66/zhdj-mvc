@@ -151,5 +151,11 @@ public class NewSController {
         res.put("result",200);
         return res.toJSONString();
     }
-
+    @GetMapping(value = "/redclass/exam",produces = "text/plain;charset=utf-8")
+    public String GetExam(@RequestParam("page1")Integer page1,@RequestParam("page2")Integer page2){
+        JSONObject res = new JSONObject();
+        res.put("data",newsService.SelectEXamlist(page1, page2));
+        res.put("result",200);
+        return res.toJSONString();
+    }
 }
